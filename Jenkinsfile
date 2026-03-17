@@ -1,11 +1,7 @@
 pipeline {
     agent any
 
-    stage('Checkout') {
-    steps {
-        git branch: 'main', url: 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
-    }
-}
+    stages {
 
         stage('Build Docker Image') {
             steps {
@@ -18,5 +14,6 @@ pipeline {
                 sh 'docker push jobanbhangu/flask-app:latest'
             }
         }
+
     }
 }
