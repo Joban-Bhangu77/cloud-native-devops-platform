@@ -8,12 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME:$TAG .'
@@ -24,8 +18,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'jobanjisinghamritsar@gmail.com',
-                    passwordVariable: 'Bhangu12345!'
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD'
                 )]) {
                     sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
                 }
