@@ -1,12 +1,11 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
-            }
-        }
+    stage('Checkout') {
+    steps {
+        git branch: 'main', url: 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
+    }
+}
 
         stage('Build Docker Image') {
             steps {
