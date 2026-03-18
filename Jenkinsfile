@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "jobanbhangu/flask-app"
+        IMAGE_NAME = "jobanbhangu77/flask-app"
         TAG = "latest"
     }
 
