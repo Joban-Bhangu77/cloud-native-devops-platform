@@ -1,9 +1,10 @@
-FROM jenkins/jenkins:lts
+FROM python:3.10-slim
 
-USER root
+WORKDIR /app
 
-RUN apt-get update && apt-get install -y docker.io
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN usermod -aG docker jenkins
+COPY app/product-service/ .
 
-USER jenkins
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--chdir", "/app", "app:app"]
