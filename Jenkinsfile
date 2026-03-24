@@ -1,7 +1,17 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(false)
+    }
+
     stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -21,8 +31,21 @@ pipeline {
 
         stage('Test API') {
             steps {
-                sh 'curl http://localhost:5001/products'
+                sh '''
+                sleep 5
+                curl http://localhost:5001/products
+                docker ps
+                '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Pipeline executed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed!'
         }
     }
 }
