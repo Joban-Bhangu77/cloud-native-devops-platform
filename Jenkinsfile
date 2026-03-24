@@ -1,15 +1,11 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout(false)
-    }
-
     stages {
 
-        stage('Clean Workspace') {
+        stage('Checkout Code') {
             steps {
-                cleanWs()
+                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
             }
         }
 
@@ -31,14 +27,11 @@ pipeline {
 
         stage('Test API') {
             steps {
-                sh '''
-                sleep 5
-                curl http://localhost:5001/products
-                docker ps
-                '''
+                sh 'curl http://localhost:5001/products'
             }
         }
     }
+}
 
     post {
         success {
