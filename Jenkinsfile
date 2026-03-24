@@ -3,21 +3,19 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t flask-product:latest ./app/product-service'
             }
         }
 
-        stage('Run Container (Test)') {
+        stage('Run Container') {
             steps {
-                sh 'docker run -d -p 5001:5000 flask-product:latest'
+                sh '''
+                docker stop flask-test || true
+                docker rm flask-test || true
+                docker run -d -p 5001:5000 --name flask-test flask-product:latest
+                '''
             }
         }
 
