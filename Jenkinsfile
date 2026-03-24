@@ -1,34 +1,29 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "jobanbhangu77/flask-app"
-        TAG = "latest"
-    }
-
     stages {
+
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$TAG .'
+                sh 'docker build -t flask-product:latest ./app/product-service'
             }
         }
 
-        stage('Login to DockerHub') {
+        stage('Run Container (Test)') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'USERNAME',
-                    passwordVariable: 'PASSWORD'
-                )]) {
-                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
-                }
+                sh 'docker run -d -p 5001:5000 flask-product:latest'
             }
         }
 
-        stage('Push Image') {
+        stage('Test API') {
             steps {
-                sh 'docker push $IMAGE_NAME:$TAG'
+                sh 'curl http://localhost:5001/products'
             }
         }
     }
