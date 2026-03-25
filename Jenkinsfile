@@ -10,7 +10,9 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
+                git branch: 'main',
+                    url: 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git',
+                    credentialsId: 'github-creds'
             }
         }
 
@@ -36,7 +38,10 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl rollout restart deployment flask-app'
+                sh '''
+                kubectl rollout restart deployment flask-app
+                kubectl rollout status deployment flask-app
+                '''
             }
         }
     }
