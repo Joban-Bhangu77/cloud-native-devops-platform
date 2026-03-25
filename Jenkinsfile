@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "jobanbhangu77/flask-app"
+        TAG = "latest"
+    }
+
     stages {
 
         stage('Checkout Code') {
@@ -11,34 +16,28 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t flask-product:latest ./app/product-service'
+                sh 'docker build -t $DOCKER_IMAGE:$TAG .'
             }
         }
 
-        stage('Run Container') {
+        stage('Login to DockerHub') {
             steps {
-                sh '''
-                docker stop flask-test || true
-                docker rm flask-test || true
-                docker run -d -p 5001:5000 --name flask-test flask-product:latest
-                '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                }
             }
         }
 
-        stage('Test API') {
+        stage('Push Image') {
             steps {
-                sh 'curl http://localhost:5001/products'
+                sh 'docker push $DOCKER_IMAGE:$TAG'
             }
         }
-    }
-}
 
-    post {
-        success {
-            echo '✅ Pipeline executed successfully!'
-        }
-        failure {
-            echo '❌ Pipeline failed!'
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl rollout restart deployment flask-app'
+            }
         }
     }
 }
