@@ -3,33 +3,40 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "jobanbhangu77/flask-app"
-        TAG = "v1.${BUILD_NUMBER}"
+        TAG = "latest"
     }
 
     stages {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
+                git 'https://github.com/Joban-Bhangu77/cloud-native-devops-platform.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'bash build.sh'
+                sh 'docker build -t $DOCKER_IMAGE:$TAG .'
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'bash push.sh'
+                sh 'docker push $DOCKER_IMAGE:$TAG'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'bash deploy.sh'
+                sh 'kubectl rollout restart deployment flask-app'
             }
         }
     }
