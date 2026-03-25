@@ -26,10 +26,16 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            steps {
-                sh 'bash scripts/push.sh'
-            }
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'USER',
+            passwordVariable: 'PASS'
+        )]) {
+            sh 'bash scripts/push.sh'
         }
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
