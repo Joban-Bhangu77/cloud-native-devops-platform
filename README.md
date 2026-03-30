@@ -7,7 +7,7 @@
 
 In modern software engineering, delivering applications quickly and reliably is just as important as building them. Manual deployments are no longer sustainable, especially when systems need to scale and evolve continuously.
 
-This project demonstrates a complete DevOps pipeline that automates the entire lifecycle of an application — from source code to production deployment on Kubernetes.
+This project demonstrates a complete DevOps pipeline that automates the entire lifecycle of an application from source code to production deployment on Kubernetes.
 
 Instead of focusing on individual tools, this project shows how GitHub, Jenkins, Docker, Kubernetes, and AWS EKS work together as one system.
 
