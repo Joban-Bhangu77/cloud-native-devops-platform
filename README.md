@@ -7,7 +7,7 @@
 
 In modern software engineering, delivering applications quickly and reliably is just as important as building them. Manual deployments are no longer sustainable, especially when systems need to scale and evolve continuously.
 
-This project represents a complete, real-world implementation of a **DevOps delivery pipeline**, designed to automate the entire lifecycle of an application — from source code to production deployment on Kubernetes.
+This project represents a complete, real-world implementation of a DevOps delivery pipeline, designed to automate the entire lifecycle of an application — from source code to production deployment on Kubernetes.
 
 ---
 
@@ -88,10 +88,7 @@ pipeline {
         }
     }
 }
-🔥━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🔥
-🚀 PRODUCTION DEPLOYMENT (KUBERNETES)
-🔥━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🔥
-☸️ Deployment Configuration
+☸️ Production Deployment (Kubernetes)
 📁 deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -125,9 +122,7 @@ spec:
     - port: 80
       targetPort: 5000
       nodePort: 30007
-🌍━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🌍
-☁️ ENVIRONMENTS (LOCAL → CLOUD)
-🌍━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🌍
+🌍 Environments (Local → Cloud)
 🖥️ Local Environment
 Kubernetes using Kind
 Fast testing & debugging
@@ -136,21 +131,17 @@ AWS EKS (Production Ready)
 Highly scalable & resilient
 
 ✔ Same configuration works everywhere
-✔ No changes required between environments
+✔ No changes required
 
-🏗️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🏗️
-⚙️ INFRASTRUCTURE AS CODE
-🏗️━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🏗️
+🏗️ Infrastructure as Code
 Terraform
 AWS (EKS, IAM, VPC)
 
-✔ Fully automated infrastructure
+✔ Fully automated
 ✔ Version controlled
-✔ Reproducible deployments
+✔ Reproducible
 
-🚧━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🚧
-🧠 REAL-WORLD CHALLENGES
-🚧━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🚧
+🚧 Real-World Challenges
 Jenkins ↔ Kubernetes connectivity issues
 Docker path issues on Windows
 AWS EKS authentication debugging
@@ -158,24 +149,18 @@ CI/CD failures & retries
 
 👉 Built strong troubleshooting mindset
 
-🧠━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🧠
-🎯 KEY LEARNINGS
-🧠━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🧠
+🧠 Key Learnings
 End-to-end CI/CD pipeline
 Kubernetes deployments
 Docker containerization
 Infrastructure automation
 Real-world debugging
-🚀━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🚀
-🔮 FUTURE IMPROVEMENTS
-🚀━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━🚀
-🔍 Prometheus & Grafana Monitoring
+🚀 Future Improvements
+🔍 Prometheus & Grafana
 🔐 DevSecOps (Trivy, SAST, DAST)
 🔁 GitOps (ArgoCD)
 📦 Helm Charts
-⭐━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⭐
-💭 FINAL THOUGHT
-⭐━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⭐
+⭐ Final Thought
 
 This is not just a project — it’s a complete DevOps mindset.
 
