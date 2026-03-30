@@ -13,6 +13,16 @@ Instead of focusing on individual tools, this project shows how GitHub, Jenkins,
 
 ---
 
+## 🎥 Project Demonstration
+
+For a complete practical walkthrough of this project, refer to the full detailed guide:
+
+👉 https://medium.com/@jobanjitsinghamritsar/from-code-to-kubernetes-building-a-complete-ci-cd-pipeline-with-jenkins-docker-kubernetes-80c59327b683
+
+📌 This link is also included inside the **TASK.md** file for step-by-step tracking and execution.
+
+---
+
 ## 🧭 The Big Picture
 
 Every code change flows automatically through a pipeline and becomes a running application.
