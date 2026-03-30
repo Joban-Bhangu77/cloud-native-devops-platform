@@ -17,10 +17,26 @@ spec:
         image: jobanbhangu77/flask-app:latest
         ports:
         - containerPort: 5000
+
         resources:
           requests:
-            cpu: "0.25"
-            memory: "0.5Gi"
+            cpu: "250m"
+            memory: "512Mi"
           limits:
-            cpu: "0.25"
-            memory: "0.5Gi"
+            cpu: "250m"
+            memory: "512Mi"
+
+        # 🔥 Health Checks (VERY IMPORTANT)
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
