@@ -87,7 +87,7 @@ docker run -d -p 8081:8080 -p 50000:50000 jenkins/jenkins:lts
 
 ---
 
-### ☁️ AWS EKS Deployment
+### ☁️ AWS EKS Deployments
 - [ ] Create cluster
 ```bash
 eksctl create cluster --name devops-cluster --region us-east-1
