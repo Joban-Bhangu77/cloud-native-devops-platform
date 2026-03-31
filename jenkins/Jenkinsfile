@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "flask-app:latest"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/Joban-Bhangu77/DevSecOps-Pipeline-SAST-DAST-SCA.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+        }
+
+        stage('Container Scan - Trivy') {
+            steps {
+                sh '''
+                chmod +x security/container/trivy-scan.sh
+                ./security/container/trivy-scan.sh $IMAGE_NAME
+                '''
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f kubernetes/'
+            }
+        }
+
+        stage('DAST Scan - ZAP') {
+            steps {
+                sh '''
+                chmod +x security/dast/zap-baseline.sh
+                ./security/dast/zap-baseline.sh http://a4f9e35cd46174288839eac4eb2b40ac-1462117316.us-east-1.elb.amazonaws.com
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Pipeline completed successfully"
+        }
+        failure {
+            echo "❌ Pipeline failed due to security issues"
+        }
+    }
+}
